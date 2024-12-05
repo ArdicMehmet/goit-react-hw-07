@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { contactAxiosInstance } from "./api/contactAxios";
 
 export const fetchContacts = createAsyncThunk(
-    'ccontacts/fetchAll',
+    'contacts/fetchContacts',
     async ( thunkAPI) => {
         try{
             const response = await contactAxiosInstance.get(`/contacts`)
@@ -11,7 +11,7 @@ export const fetchContacts = createAsyncThunk(
             return thunkAPI.rejectWithValue(e?.message || "An error occurred while fetching contacts")
         }
     },
-  )
+  )                                                            
 
   export const deleteContact = createAsyncThunk(
     'contacts/deleteContact',

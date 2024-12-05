@@ -2,25 +2,13 @@ import React, { useEffect, useMemo } from "react";
 import Contact from "../Contact";
 import styles from "./contactList.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { selectNameFilter } from "../../redux/filtersSlice";
 import { fetchContacts } from "../../redux/contactsOps";
+import { selectFilteredContacts } from "../../redux/contactsSlice";
 const ContactList = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector((state) => state.contacts.contacts);
-  const filterItem = useSelector(selectNameFilter);
   const contactLoading = useSelector(
     (state) => state.contacts.contacts.loading
   );
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, []);
-  const filteredContacts = useMemo(() => {
-    return contacts
-      ? contacts["items"].filter((contact) =>
-          contact.name.toLowerCase().includes(filterItem.toLowerCase())
-        )
-      : [];
-  }, [contacts, filterItem]);
+  const filteredContacts = useSelector(selectFilteredContacts);
 
   if (contactLoading) {
     return <div> loading ...</div>;
